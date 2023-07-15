@@ -1,0 +1,18 @@
+{% block content %}
+
+    <p>{{ message }}</p>
+    <form action="" method = "post">
+
+        {{ form.as_p }}
+        {% csrf_token %}
+
+        <span>New User??</span>
+        <a href="{% url 'register' %}">Register</a>
+        <br>
+        <button type="submit">Submit</button>
+  
+    </form>
+
+
+
+{% endblock content %}

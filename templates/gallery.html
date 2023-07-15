@@ -1,0 +1,38 @@
+{% block content %}
+{% load static %}
+<section id="services" class="services">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Welcome to Gallery</h2>
+    </div>
+
+    <div class="row">
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+      </form>
+
+
+      {% for post in posts %}
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
+        <div class="col-lg-4" data-aos="fade-right">
+          <img src="{{ post.image.url }}" class="img-fluid" alt="no-image">
+        </div>
+        <br>
+        <div class="icon"><i class="bi bi-briefcase"></i></div>
+        <h4 class="title"><a href="">{{ post.title }}</a></h4>
+        <p class="description">{{ post.description }}</p>
+        <h6>Uploaded By: <b>{{ post.owner }}</b></h6>
+        <p>Uploaded on: <b>{{ post.uploaded_date }}</b></p>
+        <p>Link: <b>{{post.link}}</b></p>
+        <button><a href="{{ post.image.url }}" download>Download</a></button>
+        {{link}}
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endblock content %}
