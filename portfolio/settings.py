@@ -37,14 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'captcha',
+    'ckeditor',
     'pp',
+    
 
 ]
-
-RECAPTCHA_PUBLIC_KEY = '6Lf9nhcnAAAAAJSoz2tO7ReWtE3gJhADMcfebdGd'
-RECAPTCHA_PRIVATE_KEY = '6Lf9nhcnAAAAALrlidJO684NCSyNbvmtNwP6mXnz'
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 
 
