@@ -1,11 +1,11 @@
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, SetPasswordForm, PasswordResetForm
+from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
 from django.core.exceptions import ValidationError
-from .models import GalleryModel, Blog
+from .models import GalleryModel, Blog, ContactModel
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(max_length=100,  help_text='Required', required=True)
@@ -46,6 +46,10 @@ class BlogForm(forms.ModelForm):
 
 
 
+class ContactForm(forms.ModelForm):
+    class Meta: 
+        model = ContactModel
+        fields = ['name', 'email' , 'subject', 'message']
 
 
 

@@ -7,10 +7,7 @@ urlpatterns = [
     path('', views.home_page, name='home'),
     path('about/', views.about_page, name='about'),
     path('contact/', views.contact_page, name='contact'),
-    path('fashion/', views.fashion_page, name='fashion'),
-    path('photography/', views.photography_page, name='photography'),
-    path('single/', views.single_page, name='single'),
-    path('travel/', views.travel_page, name='travel'),
+ 
     path('register/', views.signup, name='register'),
     path('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', views.activate, name='activate'),
     path('login/', views.login_view, name='login'),

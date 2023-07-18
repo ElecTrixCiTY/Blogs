@@ -30,3 +30,8 @@ class Blog(models.Model):
         super(Blog, self).save(*args, **kwargs)
 
 
+class ContactModel(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=100)
+    message = models.TextField()

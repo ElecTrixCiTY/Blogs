@@ -5,16 +5,17 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 # for creating register and login 
-from .forms import RegisterForm, GalleryForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .token import account_activation_token
 from django.contrib.auth import get_user_model, login, authenticate, logout
-from .forms import LoginForm, SetPasswordForm, PasswordResetForm, GalleryForm, BlogForm
+from .forms import LoginForm, SetPasswordForm, GalleryForm, BlogForm,ContactForm, RegisterForm
 from django.db.models.query_utils import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordResetForm
+
 
 from . models import GalleryModel, Blog
 
@@ -185,13 +186,6 @@ def password_reset_confirm(request, uidb64, token):
 
 
 
-
-
-
-
-
-
-
 def home_page(request):
     return render(request, 'index.html')
 
@@ -200,27 +194,7 @@ def about_page(request):
     return render(request, 'about.html')
 
 
-def contact_page(request):
-    return render(request, 'contact.html')
 
-
-def fashion_page(request):
-    return render(request, 'fashion.html')
-
-
-def photography_page(request):
-    return render(request, 'photography.html')
-
-
-def single_page(request):
-    return render(request, 'single.html')
-
-def travel_page(request):
-    return render(request, 'travel.html')
-
-
-
-@login_required(login_url='login')
 def gallery_page(request):
     if request.method == 'POST':
         form = GalleryForm(request.POST, request.FILES)
@@ -259,7 +233,7 @@ def blog_detail(request, slug):
     
     return render(request, 'blog_detail.html', context)
 
-
+@login_required
 def add_blog(request):
     form = BlogForm()
 
@@ -324,4 +298,28 @@ def blog_update(request, slug):
         return HttpResponse(e)
 
 
-    
+
+def contact_page(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            # Compose and send the email
+            send_mail(
+                f'New Contact Form Submission: {subject}',
+                f'Name: {name}\nEmail: {email}\nMessage: {message}',
+                settings.DEFAULT_FROM_EMAIL,
+                ['ghimiresubash980843@gmail.com'],
+            )
+
+            # Optionally, show a success message or redirect to a thank you page
+            return redirect('/contact/')
+
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {'form': form})
