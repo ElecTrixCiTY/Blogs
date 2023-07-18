@@ -1,5 +1,4 @@
-from .models import GalleryModel
-from .forms import GalleryForm
+
 from django.contrib import messages
 
 from django.shortcuts import render, redirect
@@ -13,11 +12,11 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .token import account_activation_token
 from django.contrib.auth import get_user_model, login, authenticate, logout
-from .forms import LoginForm, SetPasswordForm, PasswordResetForm
+from .forms import LoginForm, SetPasswordForm, PasswordResetForm, GalleryForm, BlogForm
 from django.db.models.query_utils import Q
 from django.contrib.auth.decorators import login_required
 
-from . models import GalleryModel
+from . models import GalleryModel, Blog
 
 #sending mail
 from django.core.mail import send_mail
@@ -243,3 +242,97 @@ def gallery_page(request):
 
 
 
+
+def blog_page(request):
+    blogs = Blog.objects.all()
+    return  render(request, "blogs.html", {"blogs" :blogs})
+
+
+def blog_detail(request, slug):
+    context = {}
+
+    try:
+        blog_obj = Blog.objects.filter(slug=slug).first()
+        context['blog_obj'] = blog_obj
+    except Exception as e:
+        return HttpResponse(e)
+    
+    return render(request, 'blog_detail.html', context)
+
+
+def add_blog(request):
+    form = BlogForm()
+
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES)
+        title = request.POST.get('title')
+        image = request.FILES.get('image')
+
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+        
+        return redirect('/blogs/')
+    
+    context = {'form' : form}
+    return render(request, 'add_blog.html', context)
+
+
+@login_required
+def my_blogs(request):
+    context = {}
+
+    try:
+        blogs = Blog.objects.filter(user = request.user)
+        context['blogs'] = blogs
+    except Exception as e:
+        return HttpResponse(e)
+    return render(request, 'my_blogs.html', context)
+
+
+def blog_delete(request, id):
+
+    try: 
+        blog_obj = Blog.objects.get(id=id)
+        blog_obj.delete()
+    except Exception as e:
+        return HttpResponse(e)
+    
+    return redirect('/my-blogs/')
+
+
+def blog_update(request, slug):
+    context = {}
+    
+    try: 
+        blog_obj = Blog.objects.filter(slug=slug).first()
+
+        if blog_obj.user != request.user:
+            return redirect('/')
+        
+        initial_dict = {'content' : blog_obj.content, 'image' : blog_obj.image}
+
+        form = BlogForm(initial=initial_dict)
+
+        if request.method == 'POST':
+            form = BlogForm(request.POST, request.FILES)
+
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.user = request.user
+                instance.save()
+            
+
+
+        context['blog_obj'] = blog_obj
+        context['form'] = form
+
+        return redirect('/blogs/')
+    except Exception as e:
+        return HttpResponse(e)
+    
+
+
+    return render(request, 'blog_update.html', context)
+    

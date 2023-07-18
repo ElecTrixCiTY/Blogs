@@ -35,9 +35,7 @@ $secondary: #5dd28e;
 	transform: translateX($translatex);
 }
 
-html {
-	// overflow-x: hidden;
-}
+
 body {
 	font-family: $font-primary;
 	background: $white;
@@ -912,9 +910,7 @@ textarea.form-control {
 			font-size: 20px;
 		}
 	}
-	.bio{
-
-	}
+	
 }
 
 
@@ -1124,7 +1120,7 @@ textarea.form-control {
 .mfp-with-zoom .mfp-container,
 .mfp-with-zoom.mfp-bg {
   opacity: 0;
-  -webkit-backface-visibility: hidden;
+//   -webkit-backface-visibility: hidden;
   -webkit-transition: all 0.3s ease-out; 
   -moz-transition: all 0.3s ease-out; 
   -o-transition: all 0.3s ease-out; 
@@ -1209,7 +1205,7 @@ textarea.form-control {
 			a{
 				color: lighten($black,10%);
 			}
-			span{}
+			
 		}
 	}
 }
@@ -1219,8 +1215,7 @@ textarea.form-control {
 		box-shadow: none!important;
 		font-size: 15px;
 	}
-	#map {
-	}
+	
 }
 
 

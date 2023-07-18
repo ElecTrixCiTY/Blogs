@@ -17,7 +17,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=100)
     content = RichTextField()
     slug = models.SlugField(max_length=100, null=True, blank=True)
-    image = models.ImageField(upload_to='media')
+    image = models.ImageField(upload_to='blog_photos')
     uploaded_on = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
         User, null=True, blank=True, on_delete=models.CASCADE)
@@ -28,3 +28,5 @@ class Blog(models.Model):
     def save(self, *args, **kwargs):
         self.slug = generate_slug(self.title)
         super(Blog, self).save(*args, **kwargs)
+
+

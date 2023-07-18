@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
 from django.core.exceptions import ValidationError
-from .models import GalleryModel
+from .models import GalleryModel, Blog
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(max_length=100,  help_text='Required', required=True)
@@ -36,5 +36,18 @@ class GalleryForm(forms.ModelForm):
     class Meta:
         model = GalleryModel
         fields = ['title', 'description', 'image']
+
+
+
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog    
+        fields = ['title', 'content', 'image']
+
+
+
+
+
+
 
         
