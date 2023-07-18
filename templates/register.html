@@ -1,32 +1,81 @@
-
 {% block content %}
 
 <div class="header-bar">
-    <h1> Register Page </h1>
+    <h1>Register Page</h1>
 </div>
 
 <div class="card-body">
-    
-     <form method="post">  
-    {% csrf_token %}  
-      {% for field in form %}  
-      <p>  
-        {{ field.label_tag }}<br>  
-        {{ field }}  
-        {% if field.help_text %}  
-          <small style="display: none ">{{ field.help_text }}</small>  
-        {% endif %}  
-        {% for error in field.errors %}  
-          <p style="color: red">{{ error }}</p>  
+    <form method="post">  
+        {% csrf_token %}  
+        {% for field in form %}  
+        <div class="form-group">
+            <label for="{{ field.id }}">{{ field.label }}</label>
+            {% if field.field.widget.input_type == 'email' %}
+            <input type="email" name="{{ field.html_name }}" id="{{ field.id }}" class="form-control">
+            {% else %}
+            {{ field }}
+            {% endif %}
+            {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </div>
         {% endfor %}  
-      </p>  
-      {% endfor %}  
-    <button type="submit">Sign up</button>  
-  </form>  
-
+        <button type="submit">Sign up</button>  
+        <p>Email verification is compulsory to proceed login</p>
+    </form>  
 </div>
 
+<style>
+    body {
+        background-color: beige;
+    }
 
+    .header-bar {
+        text-align: center;
+    }
 
+    .card-body {
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        width: 75%;
+        max-width: 400px;
+        box-sizing: border-box;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #333;
+        outline: none;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #4CAF50;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
 
 {% endblock content %}

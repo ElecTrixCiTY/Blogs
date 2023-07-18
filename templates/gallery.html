@@ -7,32 +7,180 @@
       <h2>Welcome to Gallery</h2>
     </div>
 
-    <div class="row">
+    <div class="details-container">
       <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Submit">
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+    </div>
 
-
+    <div class="row">
       {% for post in posts %}
       <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
-        <div class="col-lg-4" data-aos="fade-right">
-          <img src="{{ post.image.url }}" class="img-fluid" alt="no-image">
+        <div class="image-wrapper">
+          <img src="{{ post.image.url }}" class="img-fluid" alt="no-image" onclick="openFullscreen(this)">
         </div>
-        <br>
         <div class="icon"><i class="bi bi-briefcase"></i></div>
-        <h4 class="title"><a href="">{{ post.title }}</a></h4>
-        <p class="description">{{ post.description }}</p>
-        <h6>Uploaded By: <b>{{ post.owner }}</b></h6>
+        <h4 class="title">{{ post.title }}</h4>
+        <p>Uploaded By: <b>{{ post.owner }}</b></p>
         <p>Uploaded on: <b>{{ post.uploaded_date }}</b></p>
-        <p>Link: <b>{{post.link}}</b></p>
-        <button><a href="{{ post.image.url }}" download>Download</a></button>
-        {{link}}
+        <!-- <p>Link: <b>{{ post.link }}</b></p> -->
+        <a href="{{ post.image.url }}" class="btn btn-primary" download>Download</a>
       </div>
       {% endfor %}
     </div>
 
   </div>
 </section>
+
+<style>
+
+  h4{
+    text-decoration: underline;
+  }
+  body {
+    background-color: lightblue;
+    margin: 0;
+    padding: 0;
+  }
+
+  .services {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    text-align: center;
+    padding-bottom: 30px;
+  }
+
+  .section-title h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333333;
+  }
+
+  .details-container {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 -15px;
+  }
+
+  .col-lg-4 {
+    flex: 0 0 33.3333333333%;
+    max-width: 28%;
+    padding: 0 15px;
+    margin: 10px;
+  }
+
+  .icon-box {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .icon-box:hover {
+    transform: translateY(-5px);
+  }
+
+  .image-wrapper {
+    text-align: center;
+    margin-bottom: 10px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .image-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .image-wrapper:hover img {
+    transform: scale(1.2);
+  }
+
+  .icon {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .icon i {
+    font-size: 18px;
+    color: #ffffff;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .description {
+    font-size: 14px;
+    color: #777777;
+    margin-bottom: 10px;
+  }
+
+  h6,
+  p {
+    margin-bottom: 5px;
+  }
+
+  a.btn {
+    display: inline-block;
+    background-color: #4caf50;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  a.btn:hover {
+    background-color: #45a049;
+  }
+</style>
+
+<script>
+  function openFullscreen(img) {
+    if (img.requestFullscreen) {
+      img.requestFullscreen();
+    } else if (img.mozRequestFullScreen) { // Firefox
+      img.mozRequestFullScreen();
+    } else if (img.webkitRequestFullscreen) { // Chrome, Safari and Opera
+      img.webkitRequestFullscreen();
+    } else if (img.msRequestFullscreen) { // IE/Edge
+      img.msRequestFullscreen();
+    }
+  }
+</script>
+
 {% endblock content %}

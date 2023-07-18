@@ -1,22 +1,46 @@
 {% block content %}
 
-<div class="container mt-5">
+<style>
+    body {
+        background-color: lightblue;
+    }
+
+    #box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    h1{
+        text-align: center;
+    }
+</style>
+
+    <h1>Add a new blog </h1>
+
+
+<div id="box" class="container mt-5 text-center">
+
     <form method="post" class="mt-5 pt-5 mb-5 pb-5" enctype="multipart/form-data" action="{% url 'add_blog' %}">
         {% csrf_token %}
-        <div class="row">
-            <div class="col-md-12">
-                <label>Enter blog title</label>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <label class="form-label">Enter blog title</label>
                 <input type="text" class="form-control" placeholder="Enter title" name="title">
-            </div>
-
-            <div class="col-md-12">
-                {{ form.media }}
-                {{ form.as_p }}
-                
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-4">Create Blog</button>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                {{ form.media }}
+                {{ form.as_p }}
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary">Create Blog</button>
+            </div>
+        </div>
     </form>
 </div>
 

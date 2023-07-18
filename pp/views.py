@@ -303,36 +303,25 @@ def blog_delete(request, id):
 
 
 def blog_update(request, slug):
-    context = {}
-    
-    try: 
+    try:
         blog_obj = Blog.objects.filter(slug=slug).first()
 
         if blog_obj.user != request.user:
             return redirect('/')
-        
-        initial_dict = {'content' : blog_obj.content, 'image' : blog_obj.image}
 
-        form = BlogForm(initial=initial_dict)
+        form = BlogForm(instance=blog_obj)
 
         if request.method == 'POST':
-            form = BlogForm(request.POST, request.FILES)
+            form = BlogForm(request.POST, request.FILES, instance=blog_obj)
 
             if form.is_valid():
-                instance = form.save(commit=False)
-                instance.user = request.user
-                instance.save()
-            
+                form.save()
+                return redirect('/blogs/')
 
-
-        context['blog_obj'] = blog_obj
-        context['form'] = form
-
-        return redirect('/blogs/')
+        context = {'blog_obj': blog_obj, 'form': form}
+        return render(request, 'blog_update.html', context)
     except Exception as e:
         return HttpResponse(e)
-    
 
 
-    return render(request, 'blog_update.html', context)
     

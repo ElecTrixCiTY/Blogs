@@ -1,25 +1,62 @@
-
 {% block content %}
 
-
 <section>
+    <h2>{{ blog_obj.title }}</h2>
     <div class="container">
        
         <div class="row text-center">
-            <div class="col-xl-10 mx-auto"><img class="img-fluid mb-5"
-                    src="/media/{{blog_obj.image}}"
-                    alt=""></div>
+            <div class="col-xl-10 mx-auto">
+                <img class="img-fluid mb-5 blog-image"
+                    src="/media/{{ blog_obj.image }}"
+                    alt="{{ blog_obj.title }}">
+            </div>
         </div>
         <div class="row">
             <div class="col-xl-8 col-lg-10 mx-auto">
                 <div class="text-content">
-                    {{blog_obj.content|safe}}
+                    {{ blog_obj.content|safe }}
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<style>
+    body{
+        background-color: rgb(213, 238, 246);
+    }
+    h2{
+        text-align: center;
+        margin: 10px;
+    }
+    section {
+        padding: 60px 0;
+    }
 
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .img-fluid {
+        max-width: 90%; /* Reduced image size by 10% */
+        height: auto;
+        border-radius: 5px;
+    }
+
+    .blog-image {
+        border-radius: 5px;
+    }
+
+    .text-content {
+        font-size: 18px;
+        line-height: 1.8;
+        color: black; /* Set text color to white */
+    }
+</style>
 
 {% endblock content %}

@@ -1,36 +1,117 @@
-
 {% block content %}
+<style>
+    body {
+        background-color: #f2f2f2;
+    }
 
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .btn-warning {
+        color: #ffffff;
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .btn-warning:hover {
+        color: #ffffff;
+        background-color: #e0a800;
+        border-color: #d39e00;
+    }
+
+    .form-control {
+        border-radius: 4px;
+    }
+
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .mt-5 {
+        margin-top: 2.5rem !important;
+    }
+
+    .pt-5 {
+        padding-top: 2.5rem !important;
+    }
+
+    .mb-5 {
+        margin-bottom: 2.5rem !important;
+    }
+
+    .pb-5 {
+        padding-bottom: 2.5rem !important;
+    }
+
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .col-md-12 {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        color: #ffffff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        color: #ffffff;
+        background-color: #0069d9;
+        border-color: #0062cc;
+    }
+</style>
 
 <div class="container mt-5">
-
-    <a href="{% url 'my_blogs' %}" class="btn btn-warning">View Your blogs</a>
+    <a href="{% url 'my_blogs' %}" class="btn btn-warning">View Your Blogs</a>
 
     <form method="post" class="mt-5 pt-5 mb-5 pb-5" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-12">
-                <label>Enter blog title</label>
-                <input type="text" value="{{blog_obj.title}}" class="form-control" placeholder="Enter title" name="title">
+                <label for="title" class="form-label">Enter Blog Title</label>
+                <input type="text" id="title" value="{{ blog_obj.title }}" class="form-control" placeholder="Enter title" name="title" required>
             </div>
-
-            <div class="col-md-12">
-                {{form.media}}
-                {{form.as_p}}
-            </div>
-
-            <div class="col-md-12">
-
-                <input type="file" name="image" class="form-control" >
-                </div>
-
         </div>
 
-        <button type="submit" class="btn btn-primary mt-4">Create Blog</button>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <label for="content" class="form-label">Enter Blog Content</label>
+                <textarea id="content" class="form-control" rows="8" placeholder="Enter content" name="content" required>{{ blog_obj.content }}</textarea>
+            </div>
+        </div>
 
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <label for="image" class="form-label">Update Blog Image</label>
+                <input type="file" id="image" name="image" class="form-control-file">
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <img src="{{ blog_obj.image.url }}" alt="Blog Image" class="img-fluid">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Update Blog</button>
     </form>
-
 </div>
-
-
 {% endblock content %}

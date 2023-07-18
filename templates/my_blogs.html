@@ -1,43 +1,97 @@
-
-
 {% block content %}
-
 
 <section class="mt-5 pt-5">
     <div class="container">
        
         <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Blog title</th>
-            <th scope="col">Created at</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for blog in blogs %}
-          <tr>
-            <th scope="row">{{forloop.counter}}</th>
-            <td>{{blog.title}}</td>
-            <td>{{blog.uploaded_on}}</td>
-      <td>
-                <a href="{% url 'blog_update' blog.slug %}" class="btn btn-success">Update</a>
-
-                <a href="{% url 'blog_delete' blog.id %}" class="btn btn-danger">Delete</a>
-
-
-            </td>
-          </tr>
-          {% endfor %}
-         
-
-          </tbody>
-          </table>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Blog title</th>
+                    <th scope="col">Created at</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for blog in blogs %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td >{{ blog.title }}</td>
+                    <td >{{ blog.uploaded_on }}</td>
+                    <td>
+                        <a href="{% url 'blog_update' blog.slug %}" class="btn btn-success">Update</a>
+                        <a href="{% url 'blog_delete' blog.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
           
     </div>
 </section>
 
+<style>
 
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        background-color: #fff;
+        color: #333;
+    }
+
+    .table th,
+    .table td {
+        padding: 1rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .table th {
+        font-weight: bold;
+    }
+
+
+    .table tbody+tbody {
+        border-top: 2px solid #dee2e6;
+    }
+
+    .btn {
+        display: inline-block;
+        font-weight: 400;
+        color: #212529;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn:hover {
+        color: #fff;
+    }
+
+    .pl-4 {
+        padding-left: 1rem;
+    }
+</style>
 
 {% endblock content %}
