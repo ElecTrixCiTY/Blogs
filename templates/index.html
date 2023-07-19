@@ -1,7 +1,6 @@
 
 {% extends  'header.html' %}
 
-{% load static %}
 {% block body %}
 <!DOCTYPE html>
 <html>
@@ -12,7 +11,7 @@
       margin: 0;
       padding: 0;
       font-family: cursive;
-      background-image: url("{% static 'images/bgg.jpg' %}");
+      background-image: url(/media/profile/bgg.jpg);
       background-repeat: no-repeat;
       background-size: cover;
     }
@@ -101,7 +100,7 @@
 <body>
   <div class="hero-image">
     <div class="hero-text">
-      <img class="author-image" src="{% static 'images/profile.jpg' %}" alt="Author Image"><br>
+      <img class="author-image" src="/media/profile/profile.jpg" alt="Author Image"><br>
       <h2 class="hero-title">Hello, I'm Subash Ghimire</h2>
       <p class="hero-description">I am a Django based backend developer, currently studying Bsc.CSIT. Lets explore this website, you can post blogs after registering. While registering, email verification is to be done, otherwise you cannot login. There is gallery as well where you can upload photos and also download the photos uploaded by other users. We will soon introduce new features in this website, so stay connected with us.</p>
       <p><a href="#" class="btn-custom">More About Me</a></p>

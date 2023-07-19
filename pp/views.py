@@ -46,7 +46,7 @@ def signup(request):
             })
 
             recipient = [form.cleaned_data.get('email'),]
-            from_email = settings.DEFAULT_FORM_EMAIL
+            from_email = settings.DEFAULT_FROM_EMAIL
             
             send_mail(subject, message, from_email, recipient)
 
@@ -143,7 +143,7 @@ def password_reset(request):
                     'token' : account_activation_token.make_token(associated_user),
                 })
                 recipient = [user_email]
-                from_email = settings.DEFAULT_FORM_EMAIL
+                from_email = settings.DEFAULT_FROM_EMAIL
                 sent = send_mail(subject, message, from_email, recipient )
 
                
